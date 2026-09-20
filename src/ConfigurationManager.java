@@ -1,23 +1,29 @@
 public class ConfigurationManager {
 
-    // Eagerly create the Singleton when the class is loaded
-    private static final ConfigurationManager instance =
-            new ConfigurationManager();
+    // The instance starts as null
+    private static ConfigurationManager instance = null;
 
     // Game configuration settings
     private int volume;
     private String resolution;
     private String displayMode;
 
-    // Private constructor prevents other classes from creating objects
+    // Private constructor
     private ConfigurationManager() {
+        System.out.println("ConfigurationManager was created!");
+
         volume = 75;
         resolution = "1920x1080";
         displayMode = "Fullscreen";
     }
 
-    // Global access method
+    // Lazy initialization
     public static ConfigurationManager getInstance() {
+
+        if (instance == null) {
+            instance = new ConfigurationManager();
+        }
+
         return instance;
     }
 
