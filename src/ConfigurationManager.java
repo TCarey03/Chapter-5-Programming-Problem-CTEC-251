@@ -47,8 +47,3 @@ public class ConfigurationManager {
     public String getDisplayMode() {
         return displayMode;
     }
-
-    public void setDisplayMode(String displayMode) {
-        this.displayMode = displayMode;
-    }
-}
