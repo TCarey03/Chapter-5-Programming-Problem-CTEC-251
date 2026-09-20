@@ -2,25 +2,41 @@ public class Main {
 
     public static void main(String[] args) {
 
-        System.out.println("Program started.");
-
-        System.out.println("Getting the first configuration reference...");
-        ConfigurationManager config1 =
+        // Get the Singleton
+        ConfigurationManager config =
                 ConfigurationManager.getInstance();
 
-        System.out.println("Getting the second configuration reference...");
-        ConfigurationManager config2 =
-                ConfigurationManager.getInstance();
+        // Create the game subsystems
+        AudioSystem audio = new AudioSystem();
+        GraphicsRenderer graphics = new GraphicsRenderer();
 
-        // Verify both references point to the same object
-        System.out.println("Same object: " + (config1 == config2));
+        System.out.println("=== Initial Game Status ===");
 
-        // Test shared state
-        System.out.println("Original volume: " + config1.getVolume());
+        audio.playMusic();
+        graphics.renderGame();
 
-        config1.setVolume(50);
+        System.out.println();
 
-        System.out.println("Volume from config2: "
-                + config2.getVolume());
+        // Change the volume through the AudioSystem
+        System.out.println("=== Changing Volume ===");
+
+        audio.setVolume(40);
+
+        System.out.println();
+
+        // Both systems now see the updated configuration
+        System.out.println("=== Updated Game Status ===");
+
+        audio.playMusic();
+        graphics.renderGame();
+
+        System.out.println();
+
+        // Change resolution directly through the Singleton
+        config.setResolution("2560x1440");
+
+        System.out.println("=== Resolution Changed ===");
+
+        graphics.renderGame();
     }
 }
