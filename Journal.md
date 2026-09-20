@@ -35,3 +35,22 @@ The main trade-off is that the object is created later, which can make the first
 
 For this project, lazy initialization demonstrates that the Singleton can still provide one shared object while delaying its creation until it is actually needed.
 
+--------------------------------
+
+Phase 3 Journal Entry
+
+Hidden Dependencies
+
+In Phase 3, I created two game subsystems: AudioSystem and GraphicsRenderer. Both classes access the ConfigurationManager Singleton directly using ConfigurationManager.getInstance().
+
+The constructors for my subsystem classes do not show that they depend on the ConfigurationManager. For example:
+
+AudioSystem audio = new AudioSystem();
+
+A developer looking only at this constructor would not know that AudioSystem depends on ConfigurationManager.
+
+This is called a hidden dependency because the dependency exists inside the class instead of being explicitly provided to the class.
+
+Hidden dependencies can make unit testing more difficult. If I wanted to test AudioSystem with a different configuration, I cannot simply pass a test configuration into its constructor. The class always accesses the Singleton directly.
+
+The Singleton makes accessing shared configuration convenient, but it also creates tighter coupling between the subsystems and ConfigurationManager.
