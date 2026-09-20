@@ -54,3 +54,21 @@ This is called a hidden dependency because the dependency exists inside the clas
 Hidden dependencies can make unit testing more difficult. If I wanted to test AudioSystem with a different configuration, I cannot simply pass a test configuration into its constructor. The class always accesses the Singleton directly.
 
 The Singleton makes accessing shared configuration convenient, but it also creates tighter coupling between the subsystems and ConfigurationManager.
+
+---------------------------------
+
+Phase 4 Journal Entry
+
+Singleton Reflection
+
+The Singleton made it convenient to connect multiple game subsystems to the same configuration. The AudioSystem and GraphicsRenderer can access the ConfigurationManager without needing a configuration object passed into their constructors.
+
+This made it easy for the interactive console to change settings and have the changes immediately available to the other subsystems. For example, when the AudioSystem changes the volume, the updated volume can be accessed by the ConfigurationManager and other parts of the program.
+
+However, the Singleton also has drawbacks. It creates global state, which can make a program more difficult to test and can create hidden dependencies. A class that directly calls ConfigurationManager.getInstance() depends on the Singleton even though that dependency is not visible in its constructor.
+
+A Singleton can be appropriate when an application truly needs one shared instance, such as a configuration manager where having multiple conflicting configurations would cause problems.
+
+Dependency Injection can be a better choice when classes need to be independent and easy to test. With Dependency Injection, the required object can be passed into a class explicitly. This makes the dependency easier to see and allows a test to provide a different or mock object.
+
+Overall, the Singleton was useful for this game engine because it provided one shared configuration, but it also demonstrated the trade-off between convenience and loose coupling.
